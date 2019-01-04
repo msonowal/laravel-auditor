@@ -11,7 +11,7 @@ class AddAuditIndexesToCollection extends Migration
      */
     public function up()
     {
-        Schema::connection(config('mongo-audit.connection'))
+        Schema::connection(config('mongo-audit.connection_name'))
             ->create(config('mongo-audit.collection_name'), function (Blueprint $collection) {
             
             $collection->index('log_name');
@@ -27,7 +27,7 @@ class AddAuditIndexesToCollection extends Migration
      */
     public function down()
     {
-        Schema::connection(config('mongo-audit.connection'))
+        Schema::connection(config('mongo-audit.connection_name'))
             ->drop(config('mongo-audit.collection_name'));
     }
 
