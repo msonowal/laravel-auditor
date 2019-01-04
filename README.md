@@ -9,7 +9,7 @@
 A simple package to track, record and log changes of your laravel apps events and also
 Eloquent Models by Polymorphic relations. By Default, the Package stores all audit activity 
 in the `audit_logs` collection in the Mongo DB. However you can customize everything via config.
-This package uses `jenssegers/mongodb` for interacting with Mongo DB.
+This package uses [jenssegers/mongodb](https://github.com/jenssegers/Laravel-MongoDB) for interacting with Mongo DB.
 By Default Users Ip address and User Agents are Captured for every request if it is performed by Users.
 
 ## Installation
