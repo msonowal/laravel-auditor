@@ -187,13 +187,13 @@ class ExampleTest extends TestCase
 
 ```
 
-Have fun! 🎊
-
-## Credits
-
 ## TODO:
 Make the model event queable via config
 Make It more configurable
 Add Tests
 
+## Credits
+
 This package was inspired by their work on [spatie/activitylog](https://github.com/spatie/activitylog) a package to use log activity in laravel in mysql or supported db by laravel.
+
+Have fun! 🎊
