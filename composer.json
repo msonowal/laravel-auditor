@@ -1,0 +1,57 @@
+{
+    "name": "msonowal/laravel-auditor",
+    "description": "A simple mongo activity logger to record various events of your laravel application",
+    "type": "library",
+    "keywords":
+    [
+        "msonowal",
+        "mongo",
+        "audit",
+        "laravel",
+        "log",
+        "user",
+        "activity"
+    ],
+    "version": "0.1.0",
+    "require": {
+        "php" : "^7.1",
+        "illuminate/config": "~5.5.0|~5.6.0|~5.7.0",
+        "illuminate/database": "~5.5.0|~5.6.0|~5.7.0",
+        "illuminate/support": "~5.5.0|~5.6.0|~5.7.0",
+        "jenssegers/mongodb": "~3.3|~3.4"
+    },
+    "require-dev": {
+        "vlucas/phpdotenv": "^2.4",
+        "phpunit/phpunit": "^7.4",
+        "orchestra/testbench": "^3.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Manash Jyoti Sonowal (aug)",
+            "email": "manash.sonowal@conversionbug.com",
+            "homepage": "https://www.conversionbug.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Msonowal\\Audit\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Msonowal\\Audit\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Msonowal\\Audit\\AuditServiceProvider"
+            ]
+        }
+    }
+}
