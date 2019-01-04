@@ -1,11 +1,5 @@
 # Record your audit activity logs in Mongo DB on your Laravel project
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/msonowal/laravel-auditor.svg?style=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
-[![Build Status](https://img.shields.io/travis/msonowal/laravel-auditor/master.svg?style=flat-square)](https://travis-ci.org/msonowal/laravel-auditor)
-[![Quality Score](https://img.shields.io/scrutinizer/g/msonowal/laravel-auditor.svg?style=flat-square)](https://scrutinizer-ci.com/g/msonowal/laravel-auditor)
-[![StyleCI](https://styleci.io/repos/61802818/shield)](https://styleci.io/repos/61802818)
-[![Total Downloads](https://img.shields.io/packagist/dt/msonowal/laravel-auditor.svg?style=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
-
 A simple package to track, record and log changes of your laravel apps events and also
 Eloquent Models by Polymorphic relations. By Default, the Package stores all audit activity 
 in the `audit_logs` collection in the Mongo DB. However you can customize everything via config.
