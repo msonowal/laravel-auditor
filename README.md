@@ -196,4 +196,4 @@ Make the model event queable via config
 Make It more configurable
 Add Tests
 
-Thanks to [Daniel Coulbourne](https://twitter.com/DCoulbourne) and [Matt Stauffer](https://twitter.com/stauffermatt). This package was inspired by their work on [tightenco/ziggy](https://github.com/tightenco/ziggy) a package to use Laravel routes in Javascript.
+This package was inspired by their work on [spatie/activitylog](https://github.com/spatie/activitylog) a package to use log activity in laravel in mysql or supported db by laravel.
