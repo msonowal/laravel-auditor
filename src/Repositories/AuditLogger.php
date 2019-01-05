@@ -217,7 +217,7 @@ class AuditLogger
             $activity->request_infos = $this->requestInfos;
         }
 
-        $attributes->created_at = Carbon::now(); //setting the timestamp here only for actual event time tracking
+        $activity->created_at = Carbon::now(); //setting the timestamp here only for actual event time tracking
 
         return $activity;
     }
