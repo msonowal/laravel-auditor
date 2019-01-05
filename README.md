@@ -1,4 +1,7 @@
 # Record your audit activity logs in Mongo DB on your Laravel project
+[![Latest Stable Version](https://poser.pugx.org/msonowal/laravel-auditor/v/stable?format=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
+[![Total Downloads](https://poser.pugx.org/msonowal/laravel-auditor/downloads?format=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
+[![License](https://poser.pugx.org/msonowal/laravel-auditor/license?format=flat-square)](https://github.com/msonowal/laravel-auditor/blob/master/LICENSE)
 [![StyleCI](https://github.styleci.io/repos/164139542/shield?branch=master)](https://github.styleci.io/repos/164139542)
 
 A simple package to track, record and log changes of your laravel apps events and also
