@@ -51,7 +51,7 @@ This is the contents of the published config file:
     'max_entries' => 50000,
 
     /*
-     * If no log name is passed to the activity() helper
+     * If no log name is passed to the audit() helper
      * we use this default log name.
      */
     'default_log_name' => env('AUDIT_DEFAULT_LOG_NAME', 'default'),
@@ -68,7 +68,7 @@ This is the contents of the published config file:
     'connection_name' => env('AUDIT_CONNECTION', 'activity'),
     /*
      * This is the name of the collection that will be created by the migration and
-     * used by the Activity model.
+     * used by the AuditActivity model.
      */
     'collection_name' => env('AUDIT_COLLECTION_NAME', 'activity_logs'),
 ];
