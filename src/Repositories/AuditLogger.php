@@ -3,28 +3,28 @@
 namespace Msonowal\Audit\Repositories;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Config\Repository;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Traits\Macroable;
 use Msonowal\Audit\AuditServiceProvider;
-use Msonowal\Audit\Exceptions\CouldNotLogActivity;
 use Msonowal\Audit\Contracts\AuditActivityContract;
+use Msonowal\Audit\Exceptions\CouldNotLogActivity;
 
 class AuditLogger
 {
     use Macroable;
 
     /**
-     * Whether to use queue for processing the events or not
+     * Whether to use queue for processing the events or not.
      *
      * @var bool
      */
     protected $queue;
 
     /**
-     * Contains ip_address and user_agent details
+     * Contains ip_address and user_agent details.
      *
      * @var array
      */
@@ -63,7 +63,7 @@ class AuditLogger
     protected $logStatus;
 
     /**
-     * Initialize the logger object with the configuration
+     * Initialize the logger object with the configuration.
      *
      * @param Request     $request
      * @param AuthManager $auth
@@ -72,7 +72,7 @@ class AuditLogger
      */
     public function __construct(Request $request, AuthManager $auth, Repository $config, AuditStatus $logStatus)
     {
-        $this->queue      = $config['mongo-audit']['mode'] ?? true;
+        $this->queue = $config['mongo-audit']['mode'] ?? true;
 
         $this->captureRequestInfos($request);
 
@@ -99,8 +99,8 @@ class AuditLogger
         //as the Symfony requets sets as default on initialization
         if (($request->header('User-Agent') != 'Symfony/3.X') || ($request->ip() != '127.0.0.1')) {
             $this->requestInfos = [
-                'ip_address'    =>  $request->ip(),
-                'user_agent'    =>  $request->header('User-Agent'),
+                'ip_address'    => $request->ip(),
+                'user_agent'    => $request->header('User-Agent'),
             ];
         }
 
@@ -185,9 +185,10 @@ class AuditLogger
     }
 
     /**
-     * This builds/makes the Model structure for recording the event/activity
+     * This builds/makes the Model structure for recording the event/activity.
      *
-     * @param  string $description
+     * @param string $description
+     *
      * @return AuditActivityContract|null
      */
     protected function build(string $description):? AuditActivityContract
@@ -212,7 +213,7 @@ class AuditLogger
 
         $activity->log_name = $this->logName;
 
-        if (! is_null($this->requestInfos)) {
+        if (!is_null($this->requestInfos)) {
             $activity->request_infos = $this->requestInfos;
         }
 
@@ -247,7 +248,7 @@ class AuditLogger
 
                 $attribute = (string) string($match)->between(':', '.');
 
-                if (! in_array($attribute, ['subject', 'causer', 'properties'])) {
+                if (!in_array($attribute, ['subject', 'causer', 'properties'])) {
                     return $match;
                 }
 

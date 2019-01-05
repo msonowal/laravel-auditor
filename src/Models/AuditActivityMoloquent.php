@@ -2,12 +2,12 @@
 
 namespace Msonowal\Audit\Models;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Jenssegers\Mongodb\Eloquent\Model as Moloquent;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Msonowal\Audit\Contracts\AuditActivityContract;
+use Illuminate\Support\Collection;
 use Jenssegers\Mongodb\Eloquent\HybridRelations;
+use Jenssegers\Mongodb\Eloquent\Model as Moloquent;
+use Msonowal\Audit\Contracts\AuditActivityContract;
 
 class AuditActivityMoloquent extends Moloquent implements AuditActivityContract
 {
@@ -59,7 +59,7 @@ class AuditActivityMoloquent extends Moloquent implements AuditActivityContract
 
     public function changes(): Collection
     {
-        if (! is_array($this->properties)) {
+        if (!is_array($this->properties)) {
             return new Collection();
         }
 

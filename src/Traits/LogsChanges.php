@@ -2,8 +2,8 @@
 
 namespace Msonowal\Audit\Traits;
 
-use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Msonowal\Audit\AuditServiceProvider;
 use Msonowal\Audit\Repositories\AuditServiceRepository;
 
@@ -22,7 +22,7 @@ trait LogsChanges
             function ($eventName) {
                 return static::$eventName(
                     function (Model $model) use ($eventName) {
-                        if (! $model->shouldLogEvent($eventName)) {
+                        if (!$model->shouldLogEvent($eventName)) {
                             return;
                         }
 
@@ -105,7 +105,7 @@ trait LogsChanges
 
     public function attributesToBeIgnored(): array
     {
-        if (! isset(static::$ignoreChangedAttributes)) {
+        if (!isset(static::$ignoreChangedAttributes)) {
             return [];
         }
 
@@ -114,11 +114,11 @@ trait LogsChanges
 
     protected function shouldLogEvent(string $eventName): bool
     {
-        if (! $this->enableLoggingModelsEvents) {
+        if (!$this->enableLoggingModelsEvents) {
             return false;
         }
 
-        if (! in_array($eventName, ['created', 'updated'])) {
+        if (!in_array($eventName, ['created', 'updated'])) {
             return true;
         }
 

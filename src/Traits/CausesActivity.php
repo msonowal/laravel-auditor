@@ -8,8 +8,9 @@ use Msonowal\Audit\AuditServiceProvider;
 trait CausesActivity
 {
     use MorphManyWithoutCollection;
+
     /**
-     * List the actions caused by the Model
+     * List the actions caused by the Model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */

@@ -3,10 +3,10 @@
 namespace Msonowal\Audit;
 
 use Illuminate\Database\Eloquent\Model;
-use Msonowal\Audit\Repositories\AuditStatus;
+use Msonowal\Audit\Commands\CleanAuditActivityLogCommand;
 use Msonowal\Audit\Models\AuditActivityMoloquent;
 use Msonowal\Audit\Repositories\AuditServiceRepository;
-use Msonowal\Audit\Commands\CleanAuditActivityLogCommand;
+use Msonowal\Audit\Repositories\AuditStatus;
 
 class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -21,7 +21,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->mergeConfigFrom(__DIR__.'/../config/mongo-audit.php', 'mongo-audit');
 
-        if (! class_exists('AddAuditIndexesToCollection')) {
+        if (!class_exists('AddAuditIndexesToCollection')) {
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes(
@@ -38,7 +38,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->singleton(AuditStatus::class);
 
         $this->app->bind(AuditServiceRepository::class);
-        
+
         //only register if on cli to reduce application boot time
         if ($this->app->runningInConsole()) {
             $this->app->bind('command.audit:clean', CleanAuditActivityLogCommand::class);
@@ -60,7 +60,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
     public static function getActivityModelInstance(): Model
     {
         $activityModelClassName = self::determineActivityModel();
-        
+
         return new $activityModelClassName();
     }
 }

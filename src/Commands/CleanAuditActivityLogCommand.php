@@ -18,9 +18,9 @@ class CleanAuditActivityLogCommand extends Command
         $this->comment('Cleaning audit activity logs...');
 
         $log = $this->argument('log');
-        
-        $type       =   $this->option('type');
-        
+
+        $type = $this->option('type');
+
         $maxAgeInDays = config('mongo-audit.delete_records_older_than_days');
 
         $auditor->deleteRecordsOlderThan($log, $maxAgeInDays, $type);
