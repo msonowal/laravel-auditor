@@ -1,4 +1,4 @@
-# Record your audit activity logs in Mongo DB on your Laravel project
+# Record your audit activity logs in Mongo DB on on Laravel
 [![Latest Stable Version](https://poser.pugx.org/msonowal/laravel-auditor/v/stable?format=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
 [![Total Downloads](https://poser.pugx.org/msonowal/laravel-auditor/downloads?format=flat-square)](https://packagist.org/packages/msonowal/laravel-auditor)
 [![License](https://poser.pugx.org/msonowal/laravel-auditor/license?format=flat-square)](https://github.com/msonowal/laravel-auditor/blob/master/LICENSE)
