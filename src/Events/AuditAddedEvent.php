@@ -2,9 +2,9 @@
 
 namespace Msonowal\Audit\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 use Msonowal\Audit\Models\AuditActivityMoloquent;
 
 class AuditAddedEvent
@@ -20,6 +20,6 @@ class AuditAddedEvent
      */
     public function __construct(AuditActivityMoloquent $model)
     {
-        $this->model  =   $model;
+        $this->model = $model;
     }
 }

@@ -54,7 +54,7 @@ trait DetectChanges
 
     public function shouldLogOnlyDirty(): bool
     {
-        if (! isset(static::$logOnlyDirty)) {
+        if (!isset(static::$logOnlyDirty)) {
             return false;
         }
 
@@ -63,11 +63,11 @@ trait DetectChanges
 
     public function shouldLogUnguarded(): bool
     {
-        if (! isset(static::$logUnguarded)) {
+        if (!isset(static::$logUnguarded)) {
             return false;
         }
 
-        if (! static::$logUnguarded) {
+        if (!static::$logUnguarded) {
             return false;
         }
 
@@ -80,7 +80,7 @@ trait DetectChanges
 
     public function attributeValuesToBeLogged(string $processingEvent): array
     {
-        if (! count($this->attributesToBeLogged())) {
+        if (!count($this->attributesToBeLogged())) {
             return [];
         }
 

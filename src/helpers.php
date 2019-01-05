@@ -1,9 +1,9 @@
 <?php
 
-use Msonowal\Audit\Repositories\AuditStatus;
 use Msonowal\Audit\Repositories\AuditServiceRepository;
+use Msonowal\Audit\Repositories\AuditStatus;
 
-if (! function_exists('audit')) {
+if (!function_exists('audit')) {
     function audit(string $logName = null): AuditServiceRepository
     {
         $defaultLogName = config('mongo-audit.default_log_name');
