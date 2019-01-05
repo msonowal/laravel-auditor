@@ -29,7 +29,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
 
         if ($this->queue) {
             dispatch((new AuditActivityAddJob($attributes)));
-        //TODO: $jobId to get it
+            //TODO: $jobId to get it
         } else {
             self::create($attributes);
         }

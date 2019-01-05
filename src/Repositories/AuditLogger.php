@@ -2,6 +2,7 @@
 
 namespace Msonowal\Audit\Repositories;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Database\Eloquent\Model;
@@ -214,6 +215,8 @@ class AuditLogger
         if (! is_null($this->requestInfos)) {
             $activity->request_infos = $this->requestInfos;
         }
+
+        $attributes->created_at = Carbon::now();
 
         //TODO also generate the timestamp as if in queue it will take the timestamp that is processed
 

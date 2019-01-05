@@ -62,7 +62,7 @@ trait LogsChanges
 
     public function activities(): MorphMany
     {
-        return $this->MorphManyWithoutCollection(AuditServiceProvider::determineActivityModel(), 'subject');
+        return $this->morphManyWithoutCollection(AuditServiceProvider::determineActivityModel(), 'subject');
     }
 
     public function getDescriptionForEvent(string $eventName): string
