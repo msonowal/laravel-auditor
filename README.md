@@ -1,4 +1,5 @@
 # Record your audit activity logs in Mongo DB on your Laravel project
+[![StyleCI](https://github.styleci.io/repos/164139542/shield?branch=master)](https://github.styleci.io/repos/164139542)
 
 A simple package to track, record and log changes of your laravel apps events and also
 Eloquent Models by Polymorphic relations. By Default, the Package stores all audit activity 
