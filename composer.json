@@ -24,6 +24,9 @@
         "phpunit/phpunit": "^7.4",
         "orchestra/testbench": "^3.4"
     },
+    "suggest": {
+        "bhavinjr/auditor-view": "This package provides a beautifull UI to view the logs powered by Vue."
+    },
     "license": "MIT",
     "authors": [
         {
