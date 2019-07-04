@@ -2,11 +2,11 @@
 
 namespace Msonowal\Audit\Traits;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Msonowal\Audit\AuditServiceProvider;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Msonowal\Audit\Repositories\AuditServiceRepository;
 
 trait LogsChanges
@@ -38,7 +38,7 @@ trait LogsChanges
 
                         $attrs = $model->attributeValuesToBeLogged($eventName);
 
-                        if ($model->isLogEmpty($attrs) && ! $model->shouldSubmitEmptyLogs()) {
+                        if ($model->isLogEmpty($attrs) && !$model->shouldSubmitEmptyLogs()) {
                             return;
                         }
 
@@ -56,7 +56,7 @@ trait LogsChanges
 
     public function shouldSubmitEmptyLogs(): bool
     {
-        return ! isset(static::$submitEmptyLogs) ? true : static::$submitEmptyLogs;
+        return !isset(static::$submitEmptyLogs) ? true : static::$submitEmptyLogs;
     }
 
     public function isLogEmpty($attrs): bool
@@ -123,7 +123,7 @@ trait LogsChanges
 
     public function attributesToBeIgnored(): array
     {
-        if (! isset(static::$ignoreChangedAttributes)) {
+        if (!isset(static::$ignoreChangedAttributes)) {
             return [];
         }
 
@@ -132,11 +132,11 @@ trait LogsChanges
 
     protected function shouldLogEvent(string $eventName): bool
     {
-        if (! $this->enableLoggingModelsEvents) {
+        if (!$this->enableLoggingModelsEvents) {
             return false;
         }
 
-        if (! in_array($eventName, ['created', 'updated'])) {
+        if (!in_array($eventName, ['created', 'updated'])) {
             return true;
         }
 

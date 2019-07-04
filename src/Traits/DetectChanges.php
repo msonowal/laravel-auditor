@@ -2,8 +2,8 @@
 
 namespace Msonowal\Audit\Traits;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Msonowal\Audit\Exceptions\CouldNotLogActivity;
 
 trait DetectChanges
@@ -18,7 +18,7 @@ trait DetectChanges
 
                     //temporary hold the original attributes on the model
                     //as we'll need these in the updating event
-                    $oldValues = (new static)->setRawAttributes($model->getOriginal());
+                    $oldValues = (new static())->setRawAttributes($model->getOriginal());
 
                     $model->oldAttributes = static::logChanges($oldValues);
                 }
@@ -55,7 +55,7 @@ trait DetectChanges
 
     public function shouldLogOnlyDirty(): bool
     {
-        if (! isset(static::$logOnlyDirty)) {
+        if (!isset(static::$logOnlyDirty)) {
             return false;
         }
 
@@ -64,11 +64,11 @@ trait DetectChanges
 
     public function shouldLogUnguarded(): bool
     {
-        if (! isset(static::$logUnguarded)) {
+        if (!isset(static::$logUnguarded)) {
             return false;
         }
 
-        if (! static::$logUnguarded) {
+        if (!static::$logUnguarded) {
             return false;
         }
 
@@ -81,7 +81,7 @@ trait DetectChanges
 
     public function attributeValuesToBeLogged(string $processingEvent): array
     {
-        if (! count($this->attributesToBeLogged())) {
+        if (!count($this->attributesToBeLogged())) {
             return [];
         }
 
@@ -126,7 +126,7 @@ trait DetectChanges
 
                 if (
                     in_array($attribute, $model->getDates())
-                    && ! is_null($changes[$attribute])
+                    && !is_null($changes[$attribute])
                 ) {
                     $changes[$attribute] = $model->serializeDate(
                         $model->asDateTime($changes[$attribute])
