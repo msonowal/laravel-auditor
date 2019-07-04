@@ -2,9 +2,11 @@
 
 namespace Msonowal\Audit\Traits;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Msonowal\Audit\AuditServiceProvider;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Msonowal\Audit\Repositories\AuditServiceRepository;
 
 trait LogsChanges
@@ -34,16 +36,32 @@ trait LogsChanges
                             return;
                         }
 
+                        $attrs = $model->attributeValuesToBeLogged($eventName);
+
+                        if ($model->isLogEmpty($attrs) && ! $model->shouldSubmitEmptyLogs()) {
+                            return;
+                        }
+
                         app(AuditServiceRepository::class)
                             ->useLog($logName)
                             ->performedOn($model)
-                            ->withProperties($model->attributeValuesToBeLogged($eventName))
+                            ->withProperties($attrs)
                             ->queue($model->enableLoggingInQueue)
                             ->add($description);
                     }
                 );
             }
         );
+    }
+
+    public function shouldSubmitEmptyLogs(): bool
+    {
+        return ! isset(static::$submitEmptyLogs) ? true : static::$submitEmptyLogs;
+    }
+
+    public function isLogEmpty($attrs): bool
+    {
+        return empty($attrs['attributes'] ?? []) && empty($attrs['old'] ?? []);
     }
 
     public function disableLogging()
@@ -70,7 +88,7 @@ trait LogsChanges
         return $eventName;
     }
 
-    public function getLogNameToUse(string $eventName = ''): string
+    public function getLogNameToUse(): string
     {
         if (isset(static::$logName)) {
             return static::$logName;
@@ -105,7 +123,7 @@ trait LogsChanges
 
     public function attributesToBeIgnored(): array
     {
-        if (!isset(static::$ignoreChangedAttributes)) {
+        if (! isset(static::$ignoreChangedAttributes)) {
             return [];
         }
 
@@ -114,15 +132,15 @@ trait LogsChanges
 
     protected function shouldLogEvent(string $eventName): bool
     {
-        if (!$this->enableLoggingModelsEvents) {
+        if (! $this->enableLoggingModelsEvents) {
             return false;
         }
 
-        if (!in_array($eventName, ['created', 'updated'])) {
+        if (! in_array($eventName, ['created', 'updated'])) {
             return true;
         }
 
-        if (array_has($this->getDirty(), 'deleted_at')) {
+        if (Arr::has($this->getDirty(), 'deleted_at')) {
             if ($this->getDirty()['deleted_at'] === null) {
                 return false;
             }

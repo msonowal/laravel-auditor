@@ -2,6 +2,7 @@
 
 namespace Msonowal\Audit\Traits;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Msonowal\Audit\Exceptions\CouldNotLogActivity;
 
@@ -17,7 +18,7 @@ trait DetectChanges
 
                     //temporary hold the original attributes on the model
                     //as we'll need these in the updating event
-                    $oldValues = $model->replicate()->setRawAttributes($model->getOriginal());
+                    $oldValues = (new static)->setRawAttributes($model->getOriginal());
 
                     $model->oldAttributes = static::logChanges($oldValues);
                 }
@@ -54,7 +55,7 @@ trait DetectChanges
 
     public function shouldLogOnlyDirty(): bool
     {
-        if (!isset(static::$logOnlyDirty)) {
+        if (! isset(static::$logOnlyDirty)) {
             return false;
         }
 
@@ -63,11 +64,11 @@ trait DetectChanges
 
     public function shouldLogUnguarded(): bool
     {
-        if (!isset(static::$logUnguarded)) {
+        if (! isset(static::$logUnguarded)) {
             return false;
         }
 
-        if (!static::$logUnguarded) {
+        if (! static::$logUnguarded) {
             return false;
         }
 
@@ -80,7 +81,7 @@ trait DetectChanges
 
     public function attributeValuesToBeLogged(string $processingEvent): array
     {
-        if (!count($this->attributesToBeLogged())) {
+        if (! count($this->attributesToBeLogged())) {
             return [];
         }
 
@@ -115,11 +116,22 @@ trait DetectChanges
     public static function logChanges(Model $model): array
     {
         $changes = [];
-        foreach ($model->attributesToBeLogged() as $attribute) {
-            if (str_contains($attribute, '.')) {
+        $attributes = $model->attributesToBeLogged();
+
+        foreach ($attributes as $attribute) {
+            if (Str::contains($attribute, '.')) {
                 $changes += self::getRelatedModelAttributeValue($model, $attribute);
             } else {
-                $changes += collect($model)->only($attribute)->toArray();
+                $changes[$attribute] = $model->getAttribute($attribute);
+
+                if (
+                    in_array($attribute, $model->getDates())
+                    && ! is_null($changes[$attribute])
+                ) {
+                    $changes[$attribute] = $model->serializeDate(
+                        $model->asDateTime($changes[$attribute])
+                    );
+                }
             }
         }
 
@@ -132,7 +144,7 @@ trait DetectChanges
             throw CouldNotLogActivity::invalidAttribute($attribute);
         }
 
-        list($relatedModelName, $relatedAttribute) = explode('.', $attribute);
+        [$relatedModelName, $relatedAttribute] = explode('.', $attribute);
 
         $relatedModel = $model->$relatedModelName ?? $model->$relatedModelName();
 
