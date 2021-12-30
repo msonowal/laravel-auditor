@@ -9,7 +9,9 @@ use Msonowal\Audit\Models\AuditActivityMoloquent;
 
 class AuditAddedEvent
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     public $model;
 

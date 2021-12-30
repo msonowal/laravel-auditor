@@ -191,7 +191,7 @@ class AuditLogger
      *
      * @return AuditActivityContract|null
      */
-    protected function build(string $description):? AuditActivityContract
+    protected function build(string $description): ?AuditActivityContract
     {
         if ($this->logStatus->disabled()) {
             return null;

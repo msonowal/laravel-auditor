@@ -22,7 +22,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return AuditServiceRepository
      */
-    public function add(string $description) : self
+    public function add(string $description): self
     {
         $audit = $this->build($description);
 
@@ -45,7 +45,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return AuditServiceRepository
      */
-    public function queue(bool $flag = true) : self
+    public function queue(bool $flag = true): self
     {
         $this->queue = $flag;
 
@@ -77,7 +77,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
         return $audit;
     }
 
-    protected static function fireAddedEvent(AuditActivityMoloquent $audit) : void
+    protected static function fireAddedEvent(AuditActivityMoloquent $audit): void
     {
         event(new \Msonowal\Audit\Events\AuditAddedEvent($audit));
     }
@@ -89,7 +89,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return Collection
      */
-    public function findByCauser($model) : Collection
+    public function findByCauser($model): Collection
     {
         return AuditActivityMoloquent::causedBy($model)->get();
     }
@@ -117,7 +117,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return Collection
      */
-    public function all(array $columns = ['*'], string $orderBy = 'id', string $sortBy = 'asc') : Collection
+    public function all(array $columns = ['*'], string $orderBy = 'id', string $sortBy = 'asc'): Collection
     {
         return $this->getQueryBuilder()
             ->get($columns);
@@ -131,7 +131,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return LengthAwarePaginator
      */
-    public function paginateArrayResults(int $perPage = 50, array $columns = ['*']) : LengthAwarePaginator
+    public function paginateArrayResults(int $perPage = 50, array $columns = ['*']): LengthAwarePaginator
     {
         return $this->getQueryBuilder()
             ->paginate($perPage, $columns);
@@ -144,7 +144,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return LengthAwarePaginator
      */
-    public function hydratePaginatedData($results) : LengthAwarePaginator
+    public function hydratePaginatedData($results): LengthAwarePaginator
     {
         $results = clone $results; //just a functional approach
         $hydrated = AuditActivityMoloquent::hydrate($results->getCollection()->toArray());
@@ -162,7 +162,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return LengthAwarePaginator
      */
-    public function paginate(int $perPage = 50, array $columns = ['*']) : LengthAwarePaginator
+    public function paginate(int $perPage = 50, array $columns = ['*']): LengthAwarePaginator
     {
         //as mongo paginate not working from the model so we are using raw builder to retrieve the data then hydrate it as a model instance
         $results = $this->paginateArrayResults($perPage, $columns);
@@ -194,7 +194,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return Collection
      */
-    public function findBy($field, $value, array $columns = ['*']) : Collection
+    public function findBy($field, $value, array $columns = ['*']): Collection
     {
         return AuditActivityMoloquent::where($field, $value)
                 ->get($columns);
@@ -209,7 +209,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return AuditActivityMoloquent
      */
-    public function findOneOrFail($id) : AuditActivityMoloquent
+    public function findOneOrFail($id): AuditActivityMoloquent
     {
         try {
             return AuditActivityMoloquent::findOrFail($id);
@@ -223,11 +223,11 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @param [type] $field
      * @param [type] $value
-     * @param array  $columns
+     * @param array $columns
      *
      * @return AuditActivityMoloquent //maybe null //TODO: test return type
      */
-    public function findOneBy($field, $value, array $columns = ['*']) :? AuditActivityMoloquent
+    public function findOneBy($field, $value, array $columns = ['*']): ?AuditActivityMoloquent
     {
         return AuditActivityMoloquent::where($field, $value)
                 ->first($columns);
@@ -239,13 +239,13 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @param [type] $field
      * @param [type] $value
-     * @param array  $columns
+     * @param array $columns
      *
      * @throws Illuminate/Database/Eloquent/ModelNotFoundException
      *
      * @return AuditActivityMoloquent
      */
-    public function findOneByOrFail($field, $value, array $columns = ['*']) : AuditActivityMoloquent
+    public function findOneByOrFail($field, $value, array $columns = ['*']): AuditActivityMoloquent
     {
         return AuditActivityMoloquent::where($field, $value)
                 ->firstOrFail($columns);
@@ -258,7 +258,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return Collection
      */
-    public function search(string $text) : Collection
+    public function search(string $text): Collection
     {
         if (!empty($text)) {
             return $this->getQueryBuilder()
@@ -273,13 +273,13 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      * Performs an update to the model by id and update the attributes only
      * we can also pass additional options like upsert to true or any other options as native operations.
      *
-     * @param array  $data
+     * @param array $data
      * @param [type] $id
-     * @param array  $options
+     * @param array $options
      *
      * @return int returns the number of effected records
      */
-    public function update(array $data, $id, array $options = []) : int
+    public function update(array $data, $id, array $options = []): int
     {
         return AuditActivityMoloquent::where('_id', $id)
                     ->update($data, $options);
@@ -298,7 +298,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return int
      */
-    public function delete(...$ids) : int
+    public function delete(...$ids): int
     {
         return AuditActivityMoloquent::destroy($ids);
     }
@@ -312,7 +312,7 @@ class AuditServiceRepository extends AuditLogger implements RepositoryContract
      *
      * @return int
      */
-    public function deleteRecordsOlderThan(?string $logName = self::DEFAULT_LOG_NAME, int $maxAgeInDays = 365, ?string $type = null) : int
+    public function deleteRecordsOlderThan(?string $logName = self::DEFAULT_LOG_NAME, int $maxAgeInDays = 365, ?string $type = null): int
     {
         //TODO: delete only if the limit of the logname exceeds some number of entries
         //i.e. will need to set to keep atleast 1,00,000

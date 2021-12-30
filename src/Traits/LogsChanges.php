@@ -108,9 +108,9 @@ trait LogsChanges
 
         $events = collect(
             [
-            'created',
-            'updated',
-            'deleted',
+                'created',
+                'updated',
+                'deleted',
             ]
         );
 
