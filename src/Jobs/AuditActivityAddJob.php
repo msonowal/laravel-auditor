@@ -21,7 +21,7 @@ class AuditActivityAddJob implements ShouldQueue
      */
     public function __construct(array $attributes)
     {
-        Log::debug('AuditActivityAddJob __construct START');
+        // Log::debug('AuditActivityAddJob __construct START');
         $this->onQueue(config('system.queues.default'));
         $this->attributes = $attributes;
     }
@@ -33,10 +33,10 @@ class AuditActivityAddJob implements ShouldQueue
      */
     public function handle()
     {
-        Log::debug('AuditActivityAddJob handle START');
+        // Log::debug('AuditActivityAddJob handle START');
 
         $audit = AuditServiceRepository::create($this->attributes);
 
-        Log::debug('AuditActivityAddJob handle END');
+        // Log::debug('AuditActivityAddJob handle END');
     }
 }
