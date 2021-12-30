@@ -14,7 +14,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->publishes(
             [
-            __DIR__.'/../config/mongo-audit.php' => config_path('mongo-audit.php'),
+                __DIR__.'/../config/mongo-audit.php' => config_path('mongo-audit.php'),
             ],
             'config'
         );
@@ -26,7 +26,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
 
             $this->publishes(
                 [
-                __DIR__.'/../migrations/add_audit_indexes_to_collection.php.stub' => database_path("/migrations/{$timestamp}_add_audit_indexes_to_collection.php"),
+                    __DIR__.'/../migrations/add_audit_indexes_to_collection.php.stub' => database_path("/migrations/{$timestamp}_add_audit_indexes_to_collection.php"),
                 ],
                 'migrations'
             );
@@ -45,7 +45,7 @@ class AuditServiceProvider extends \Illuminate\Support\ServiceProvider
 
             $this->commands(
                 [
-                'command.audit:clean',
+                    'command.audit:clean',
                 ]
             );
         }

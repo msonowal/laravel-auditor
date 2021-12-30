@@ -12,9 +12,9 @@ interface RepositoryContract
 
     public static function create(array $attributes);
 
-    public function update(array $data, $id) : int;
+    public function update(array $data, $id): int;
 
-    public function delete(...$ids) : int;
+    public function delete(...$ids): int;
 
     public function find($id, array $columns = ['*']);
 
@@ -26,5 +26,5 @@ interface RepositoryContract
 
     public function findOneByOrFail($field, $value, array $columns = ['*']);
 
-    public function paginateArrayResults(int $perPage = 50, array $columns = ['*']) : LengthAwarePaginator;
+    public function paginateArrayResults(int $perPage = 50, array $columns = ['*']): LengthAwarePaginator;
 }
